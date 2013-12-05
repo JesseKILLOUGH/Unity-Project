@@ -1,79 +1,76 @@
 using UnityEngine;
 using System.Collections;
 
-namespace AssemblyCSharp
-{
-	public class FartScreen : MonoBehaviour {
-    // Array of menu item control names.
-    string[] menuOptions = new string[4];
-	int selectedIndex = 0;  
-		
-	void Start() {
-	    menuOptions[0] = "Tutorial";
-	    menuOptions[1] = "Play";
-	    menuOptions[2] = "High Scores";
-	    menuOptions[3] = "Exit";		
-	}
-		
-		
-    // Default selected menu item (in this case, Tutorial).
-     
-     
-    // Function to scroll through possible menu items array, looping back to start/end depending on direction of movement.
-    int menuSelection (string[] menuItems, int selectedItem, string direction) {
-        if (direction == "up") {
-            if (selectedItem == 0) {
-                selectedItem = menuItems.Length - 1;
-            } else {
-                selectedItem -= 1;
-            }
+public class FartScreen : MonoBehaviour {
+// Array of menu item control names.
+string[] menuOptions = new string[4];
+int selectedIndex = 0;  
+	
+void Start() {
+    menuOptions[0] = "Tutorial";
+    menuOptions[1] = "Play";
+    menuOptions[2] = "High Scores";
+    menuOptions[3] = "Exit";		
+}
+	
+	
+// Default selected menu item (in this case, Tutorial).
+ 
+ 
+// Function to scroll through possible menu items array, looping back to start/end depending on direction of movement.
+int menuSelection (string[] menuItems, int selectedItem, string direction) {
+    if (direction == "up") {
+        if (selectedItem == 0) {
+            selectedItem = menuItems.Length - 1;
+        } else {
+            selectedItem -= 1;
         }
-       
-        if (direction == "down") {
-            if (selectedItem == menuItems.Length - 1) {
-                selectedItem = 0;
-            } else {
-                selectedItem += 1;
-            }
-        }
-       
-        return selectedItem;
     }
+   
+    if (direction == "down") {
+        if (selectedItem == menuItems.Length - 1) {
+            selectedItem = 0;
+        } else {
+            selectedItem += 1;
+        }
+    }
+   
+    return selectedItem;
+}
 
-    void OnGUI () {
-		if(Event.current.type == EventType.KeyDown) {
-			KeyCode keyCode = Event.current.keyCode;
-			//Debug.Log(keyCode + " is key");
-			if (keyCode == KeyCode.DownArrow) {
-				selectedIndex = menuSelection(menuOptions, selectedIndex, "down");
-			} else if (keyCode == KeyCode.UpArrow) {
-				selectedIndex = menuSelection(menuOptions, selectedIndex, "up");
-			}
+void OnGUI () {
+	if(Event.current.type == EventType.KeyDown) {
+		KeyCode keyCode = Event.current.keyCode;
+		//Debug.Log(keyCode + " is key");
+		if (keyCode == KeyCode.DownArrow) {
+			selectedIndex = menuSelection(menuOptions, selectedIndex, "down");
+		} else if (keyCode == KeyCode.UpArrow) {
+			selectedIndex = menuSelection(menuOptions, selectedIndex, "up");
 		}
-			
-        GUI.SetNextControlName ("Tutorial");
-        if (GUI.Button(new Rect(10,70,50,30), "View Tutorial")) {
-            //Do tutorial stuff.
-        }
-       
-        GUI.SetNextControlName ("Play");
-        if (GUI.Button(new Rect(10,100,50,30), "Play Game")) {
-            //Do game stuff.
-        }
-       
-        GUI.SetNextControlName ("High Scores");
-        if (GUI.Button(new Rect(10,130,50,30), "High Scores")) {
-            //Do high score stuff.
-        }
-       
-        GUI.SetNextControlName ("Exit");
-        if (GUI.Button(new Rect(10,160,50,30), "Exit")) {
-            //Do quit stuff.
-        }
-     
-        GUI.FocusControl (menuOptions[selectedIndex]);
-    }
-
 	}
+		
+    GUI.SetNextControlName ("Tutorial");
+    if (GUI.Button(new Rect(10,70,50,30), "View Tutorial")) {
+        //Do tutorial stuff.
+    }
+   
+    GUI.SetNextControlName ("Play");
+    if (GUI.Button(new Rect(10,100,50,30), "Play Game")) {
+        //Do game stuff.
+    }
+   
+    GUI.SetNextControlName ("High Scores");
+    if (GUI.Button(new Rect(10,130,50,30), "High Scores")) {
+        //Do high score stuff.
+    }
+   
+    GUI.SetNextControlName ("Exit");
+    if (GUI.Button(new Rect(10,160,50,30), "Exit")) {
+        //Do quit stuff.
+    }
+ 
+    GUI.FocusControl (menuOptions[selectedIndex]);
+}
+
 }
 
